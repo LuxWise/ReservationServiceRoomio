@@ -1,0 +1,16 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: reservation-service
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://reservation-db:5432/reservation_service}
+    username: ${SPRING_DATASOURCE_USERNAME:reservation_admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:reservation_db_pass}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
