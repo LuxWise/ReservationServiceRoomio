@@ -28,7 +28,19 @@ public class Reservation {
     private LocalDateTime reservationEnd;
 
     @Column(name = "user_id", nullable = false)
+    private UUID userId;
+
+    @Column(name = "hotel_id", nullable = false)
+    private UUID hotelId;
+
+    @Column(name = "hotel_name", nullable = false)
+    private String hotelName;
+
+    @Column(name = "room_id", nullable = false)
     private UUID roomId;
+
+    @Column(name = "room_type", nullable = false)
+    private String roomType;
 
     @ManyToOne
     @JoinColumn(name = "reservation_status", nullable = false)
