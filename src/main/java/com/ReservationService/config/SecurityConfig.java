@@ -16,8 +16,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(
-                                "/reservations",
-                                "/reservations/**"
+                                "/reservation",
+                                "/reservation/**"
                         ).permitAll()
                         .anyRequest().denyAll()
                 )

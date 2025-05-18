@@ -2,6 +2,7 @@ package com.ReservationService.controller;
 
 
 import com.ReservationService.model.Reservation;
+import com.ReservationService.service.NotificationPublisher;
 import com.ReservationService.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,18 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/reservation")
 @RequiredArgsConstructor
 public class ReservationController {
 
     private final ReservationService reservationService;
+    private final NotificationPublisher notificationPublisher;
+
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheck(@RequestHeader(value = "X-User-ID") String user) {
+        System.out.println("User: " + user);
+        return ResponseEntity.ok("Reservation Service is up and running");
+    }
 
     @GetMapping
     public ResponseEntity<List<Reservation>> getAllReservations() {
@@ -30,8 +38,11 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationResponse> createReservation() {
-        return handleRequestProcess(() -> {
+    public ResponseEntity<ReservationResponse> createReservation(@RequestHeader(value = "X-User-ID") String user) {
+        return handleRequestProcess(() ->
+        {
+
+            notificationPublisher.publishNotification("jcsanchez.martinez.2020@gmail.com", "hotel fontana");
             return ReservationResponse.builder()
                     .message("Reservation created successfully")
                     .build();

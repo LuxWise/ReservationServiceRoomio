@@ -13,12 +13,17 @@ import java.util.UUID;
 public class ReservationService {
 
     private  final ReservationRepository reservationRepository;
+    private final NotificationPublisher notificationPublisher;
 
     public List<Reservation> getAllReservations(){
         return reservationRepository.findAll();
     }
 
-    public Reservation  getReservationById(UUID id){
+    public Reservation getReservationById(UUID id){
         return reservationRepository.findById(id).orElse(null);
+    }
+
+    public Reservation createReservation(Reservation reservation){
+        return reservationRepository.save(reservation);
     }
 }
