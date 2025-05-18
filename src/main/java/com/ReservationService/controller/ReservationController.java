@@ -41,8 +41,7 @@ public class ReservationController {
     public ResponseEntity<ReservationResponse> createReservation(@RequestHeader(value = "X-User-ID") String user) {
         return handleRequestProcess(() ->
         {
-
-            notificationPublisher.publishNotification("jcsanchez.martinez.2020@gmail.com", "hotel fontana");
+            notificationPublisher.publishNotification(user, "hotel fontana");
             return ReservationResponse.builder()
                     .message("Reservation created successfully")
                     .build();
