@@ -38,15 +38,15 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationResponse> createReservation(@RequestHeader(value = "X-User-ID") String user) {
-        return handleRequestProcess(() ->
-        {
+    public ResponseEntity<ReservationResponse> createReservation(
+            @RequestHeader(value = "X-User-ID") UUID userId,
+            @RequestHeader(value = "X-User-Mail") String user,
+            @RequestBody Reservation reservation
+    ) {
 
-            notificationPublisher.publishNotification("jcsanchez.martinez.2020@gmail.com", "hotel fontana");
-            return ReservationResponse.builder()
-                    .message("Reservation created successfully")
-                    .build();
-        });
+        return handleRequestProcess(() ->
+                reservationService.createReservation(reservation, userId, user)
+        );
     }
 
     @PatchMapping("/{reservationId}")
@@ -71,7 +71,7 @@ public class ReservationController {
         try {
             return ResponseEntity.ok(supplier.get());
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(ReservationResponse.builder().message("Internal Server Error").build());
+            return ResponseEntity.status(500).body(ReservationResponse.builder().message("Internal Server Error: " + e).build());
         }
     }
 
