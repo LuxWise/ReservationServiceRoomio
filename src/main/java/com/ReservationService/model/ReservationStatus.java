@@ -16,7 +16,7 @@ public class ReservationStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "status", nullable = false)
     private String status;

@@ -40,11 +40,11 @@ public class Reservation {
     private UUID roomId;
 
     @Column(name = "room_type", nullable = false)
-    private String roomType;
+    private Long roomType;
 
     @ManyToOne
     @JoinColumn(name = "reservation_status", nullable = false)
-    private ReservationStatus reservation_status;
+    private ReservationStatus reservationStatus;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
